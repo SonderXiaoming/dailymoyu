@@ -1,4 +1,4 @@
-# login_moyu
+# daily_moyu
 
 # HoshinoBot摸鱼插件
 
