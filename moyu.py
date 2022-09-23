@@ -8,11 +8,13 @@ sv = Service('dailymoyu', enable_on_default=True, help_='''每日摸鱼
 
 async def get_calendar() -> str:
     async with httpx.AsyncClient(http2=True) as client:
-        response = await client.get("https://api.j4u.ink/v1/store/other/proxy/remote/moyu.json")
+        #response = await client.get("https://api.j4u.ink/v1/store/other/proxy/remote/moyu.json")
+        response = await client.get("https://api.vvhan.com/api/moyu?type=json")
     if response.is_error:
         raise ValueError(f"摸鱼日历获取失败，错误码：{response.status_code}")
     content = response.json()
-    return content["data"]["moyu_url"]
+    #return content["data"]["moyu_url"]
+    return content["url"]
 
 @sv.scheduled_job('cron', hour='10', minute='30', jitter=50)
 async def automoyu():
