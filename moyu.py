@@ -14,7 +14,7 @@ sv = Service(
 )
 
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.6) ",
+    "User-Agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.6)",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "zh-cn",
 }
@@ -23,13 +23,12 @@ headers = {
 async def get_calendar() -> str:
     async with httpx.AsyncClient(http2=True) as client:
         response = await client.get(
-            url="https://api.j4u.ink/v1/store/other/proxy/remote/moyu.json",
-            headers=headers,
+            url="https://api.vvhan.com/api/moyu?type=json", headers=headers
         )
     if response.is_error:
         raise ValueError(f"摸鱼日历获取失败，错误码：{response.status_code}")
     content = response.json()
-    return content["data"]["img_url"]
+    return content["url"]
 
 
 @sv.scheduled_job("cron", hour="11", jitter=50)
